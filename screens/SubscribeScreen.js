@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Text, TextInput, Pressable, Alert } from 'reac
 
 const SubscribeScreen = () => {
   const [email, setEmail] = useState('');
-  const isDisabled = email.trim().length === 0;
+  const isDisabled = email.trim().length === 0 || !email.includes('@');
 
   return (
     <View style={styles.container}>
@@ -20,6 +20,7 @@ const SubscribeScreen = () => {
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
+        autoFocus
       />
       <Pressable
         disabled={isDisabled}
