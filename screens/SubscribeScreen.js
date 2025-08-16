@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, Text, TextInput, Pressable, Alert } from 'reac
 
 const SubscribeScreen = () => {
   const [email, setEmail] = useState('');
+  const isDisabled = email.trim().length === 0;
 
   return (
     <View style={styles.container}>
@@ -18,11 +19,26 @@ const SubscribeScreen = () => {
         keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
+        autoCapitalize="none"
       />
-      <Pressable style={styles.button} onPress={() => Alert.alert(`Thank you for subscribing ${email}, stay tuned!`)}>
+      <Pressable
+        disabled={isDisabled}
+        onPress={() => Alert.alert(`Thank you for subscribing ${email}, stay tuned!`)}
+        style={({ pressed }) => [
+          styles.button,
+          {
+            backgroundColor: isDisabled
+              ? '#9fa5a1'
+              : pressed
+                ? '#40524C'
+                : '#495E57',
+          },
+        ]}
+      >
         <Text style={styles.buttonText}>Subscribe</Text>
       </Pressable>
-  </View>);
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -53,7 +69,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
   },
   button: {
-    backgroundColor: '#40524C',
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
